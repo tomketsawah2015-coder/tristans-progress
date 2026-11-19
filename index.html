@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101827">
+<title>Tristan's Progress</title>
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{--bg:#0b1220;--panel:#121d2e;--panel2:#17253a;--text:#edf4ff;--muted:#9aabc2;--blue:#55a7ff;--line:#26364d;--good:#52d6a0}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(160deg,#101c30,#080e19 65%);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+header{padding:25px 18px 18px;max-width:900px;margin:auto} .eyebrow{color:var(--blue);font-size:12px;font-weight:800;letter-spacing:2px}
+h1{font-size:27px;line-height:1.15;margin:7px 0}header p{color:var(--muted);margin:6px 0 0}
+main{max-width:900px;margin:auto;padding:0 14px 40px}.tabs{display:flex;gap:8px;overflow:auto;padding:5px 0 14px}
+button,.tab{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:12px;padding:10px 14px;font-weight:650;cursor:pointer}
+.tab.active,button.primary{background:var(--blue);border-color:var(--blue);color:#061426}
+.card{background:rgba(18,29,46,.96);border:1px solid var(--line);border-radius:18px;padding:17px;margin:0 0 13px;box-shadow:0 10px 25px #0002}
+.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.stat{background:var(--panel2);padding:13px;border-radius:14px}.stat b{font-size:23px;display:block}.muted{color:var(--muted)}h2{font-size:18px;margin:0 0 12px}h3{font-size:15px;margin:0 0 8px}
+label{display:block;font-weight:650;margin:12px 0 5px}input,textarea,select{width:100%;border:1px solid var(--line);border-radius:11px;padding:11px;background:#0b1525;color:var(--text);font:inherit}textarea{min-height:74px;resize:vertical}
+.checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.check{display:flex;align-items:center;gap:8px;background:var(--panel2);padding:10px;border-radius:11px;font-weight:500}.check input{width:auto}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.hidden{display:none}.entry{border-bottom:1px solid var(--line);padding:10px 0}.entry:last-child{border:0}
+.score{height:9px;background:#26364d;border-radius:10px;overflow:hidden;margin-top:7px}.score span{display:block;height:100%;background:var(--blue)}
+small{color:var(--muted)}footer{text-align:center;color:var(--muted);font-size:12px;padding:18px}
+@media(min-width:650px){.row{grid-template-columns:repeat(4,minmax(0,1fr))}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="eyebrow">PERSONAL DEVELOPMENT JOURNAL</div>
+ <h1>TRISTAN'S PROGRESS</h1>
+ <p>Langkah kecil setiap hari. Catat, evaluasi, berkembang.</p>
+</header>
+<main>
+ <nav class="tabs">
+  <button class="tab active" data-tab="home">Dashboard</button>
+  <button class="tab" data-tab="journal">Jurnal harian</button>
+  <button class="tab" data-tab="history">Riwayat</button>
+  <button class="tab" data-tab="review">Evaluasi mingguan</button>
+ </nav>
+ <section id="home">
+  <div class="row">
+   <div class="stat"><small>Jurnal tersimpan</small><b id="total">0</b></div>
+   <div class="stat"><small>Streak saat ini</small><b id="streak">0 hari</b></div>
+   <div class="stat"><small>Rata-rata nilai</small><b id="average">—</b></div>
+   <div class="stat"><small>Jurnal hari ini</small><b id="todayStatus">Belum</b></div>
+  </div>
+  <div class="card" style="margin-top:13px"><h2>Perkembangan 5 aspek</h2><div id="bars" class="muted">Isi jurnal harian untuk melihat perkembangan.</div></div>
+  <div class="card"><h2>Pengingat kecil</h2><p class="muted">Tidak harus sempurna. Isi dengan jujur, meskipun hari ini belum berjalan sesuai rencana.</p></div>
+ </section>
+ <section id="journal" class="hidden">
+  <div class="card">
+   <h2>Jurnal harian</h2><p class="muted" id="dateLabel"></p>
+   <form id="journalForm">
+    <div class="formgrid">
+     <div><label for="mood">Bagaimana suasana hati hari ini?</label><select id="mood"><option>Baik</option><option>Biasa saja</option><option>Kurang baik</option><option>Stres / banyak pikiran</option></select></div>
+     <div><label for="sleep">Tidur semalam (jam)</label><input id="sleep" type="number" min="0" max="24" step=".5" placeholder="Contoh: 7"></div>
+     <div><label for="exercise">Aktivitas fisik hari ini</label><input id="exercise" placeholder="Contoh: jalan kaki, push-up, istirahat"></div>
+     <div><label for="study">Belajar bahasa Jepang (menit)</label><input id="study" type="number" min="0" placeholder="Contoh: 30"></div>
+     <div><label for="auto">Belajar otomotif (menit)</label><input id="auto" type="number" min="0" placeholder="Contoh: 20"></div>
+     <div><label for="wake">Bangun pukul</label><input id="wake" type="time"></div>
+    </div>
+    <label>Target/kebiasaan yang berhasil dilakukan</label>
+    <div class="checks">
+     <label class="check"><input type="checkbox" id="move"> Bergerak / olahraga</label>
+     <label class="check"><input type="checkbox" id="learn"> Belajar sesuatu</label>
+     <label class="check"><input type="checkbox" id="discipline"> Menjalankan rencana</label>
+     <label class="check"><input type="checkbox" id="connect"> Berinteraksi / membantu</label>
+    </div>
+    <label for="win">Apa satu hal yang berhasil hari ini?</label><textarea id="win" placeholder="Tuliskan pencapaian kecilmu..."></textarea>
+    <label for="lesson">Apa yang kamu pelajari hari ini?</label><textarea id="lesson" placeholder="Pengetahuan, bahasa Jepang, otomotif, atau hal lain..."></textarea>
+    <label for="improve">Apa yang ingin diperbaiki besok?</label><textarea id="improve" placeholder="Pilih satu hal yang realistis..."></textarea>
+    <label for="gratitude">Hal yang kamu syukuri</label><textarea id="gratitude" placeholder="Tidak perlu hal besar..."></textarea>
+    <div class="actions"><button class="primary" type="submit">Simpan jurnal</button><button type="button" id="clear">Kosongkan form</button></div>
+   </form>
+  </div>
+ </section>
+ <section id="history" class="hidden"><div class="card"><h2>Riwayat jurnal</h2><div id="entries" class="muted">Belum ada jurnal tersimpan.</div><div class="actions"><button id="export">Ekspor data (.json)</button></div></div></section>
+ <section id="review" class="hidden">
+  <div class="card"><h2>Evaluasi mingguan</h2><p class="muted">Ringkasan otomatis berdasarkan jurnal 7 hari terakhir.</p><div id="weekly">Belum cukup data. Isi jurnal harianmu terlebih dahulu.</div></div>
+  <div class="card"><h2>Pertanyaan refleksi</h2>
+   <label for="best">Pencapaian terbaik minggu ini</label><textarea id="best"></textarea>
+   <label for="challenge">Tantangan terbesar minggu ini</label><textarea id="challenge"></textarea>
+   <label for="next">Satu fokus minggu depan</label><textarea id="next"></textarea>
+   <button class="primary" id="saveReview">Simpan refleksi</button><p id="reviewSaved" class="muted"></p>
+  </div>
+ </section>
+</main>
+<footer>Data disimpan di browser perangkat ini. Ekspor cadangan secara berkala.</footer>
+<script>
+const KEY='tristan-progress-v1', REVIEW='tristan-progress-review-v1';
+const $=id=>document.getElementById(id);
+const today=()=>new Date().toLocaleDateString('en-CA');
+let data=JSON.parse(localStorage.getItem(KEY)||'{}');
+function save(){localStorage.setItem(KEY,JSON.stringify(data));render();}
+function setTab(name){document.querySelectorAll('section').forEach(s=>s.classList.toggle('hidden',s.id!==name));document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));if(name==='journal')loadToday();if(name==='review')renderWeekly();}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tab)));
+$('dateLabel').textContent=new Date().toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+const fields=['mood','sleep','exercise','study','auto','wake','move','learn','discipline','connect','win','lesson','improve','gratitude'];
+function loadToday(){let d=data[today()]||{};fields.forEach(k=>{let el=$(k);if(el.type==='checkbox')el.checked=!!d[k];else el.value=d[k]??'';});}
+function score(d){return ['move','learn','discipline','connect'].filter(k=>d[k]).length/4*100;}
+$('journalForm').addEventListener('submit',e=>{e.preventDefault();let d={};fields.forEach(k=>{let el=$(k);d[k]=el.type==='checkbox'?el.checked:el.value;});d.savedAt=new Date().toISOString();data[today()]=d;save();alert('Jurnal hari ini berhasil disimpan. Terima kasih sudah meluangkan waktu!');setTab('home');});
+$('clear').onclick=()=>{if(confirm('Kosongkan semua isian form?'))$('journalForm').reset();};
+function render(){
+ let dates=Object.keys(data).sort(), vals=dates.map(k=>score(data[k]));
+ $('total').textContent=dates.length;
+ let s=0,cur=today();while(data[cur]){s++;let dt=new Date(cur+'T12:00:00');dt.setDate(dt.getDate()-1);cur=dt.toLocaleDateString('en-CA');}
+ $('streak').textContent=s+' hari';
+ $('average').textContent=vals.length?Math.round(vals.reduce((a,b)=>a+b,0)/vals.length)+'%':'—';
+ $('todayStatus').textContent=data[today()]?'Sudah':'Belum';
+ let names=[['move','Fisik & kebugaran'],['learn','Pengetahuan'],['discipline','Disiplin'],['connect','Relasi & kontribusi']];
+ $('bars').innerHTML=dates.length?names.map(([k,n])=>{let p=Math.round(dates.filter(d=>data[d][k]).length/dates.length*100);return `<div style="margin:13px 0"><div style="display:flex;justify-content:space-between"><b>${n}</b><span>${p}%</span></div><div class="score"><span style="width:${p}%"></span></div></div>`}).join(''):'Isi jurnal harian untuk melihat perkembangan.';
+ $('entries').innerHTML=dates.length?dates.reverse().map(k=>{let d=data[k];return `<div class="entry"><b>${new Date(k+'T12:00:00').toLocaleDateString('id-ID',{weekday:'short',day:'numeric',month:'short',year:'numeric'})}</b><div class="muted">Mood: ${esc(d.mood||'—')} · Jepang: ${esc(d.study||'0')} menit · Otomotif: ${esc(d.auto||'0')} menit</div><div>${esc(d.win||'')}</div><button style="margin-top:7px" onclick="editEntry('${k}')">Lihat / edit</button> <button style="margin-top:7px" onclick="deleteEntry('${k}')">Hapus</button></div>`}).join(''):'Belum ada jurnal tersimpan.';
+}
+function esc(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+window.editEntry=k=>{setTab('journal');fields.forEach(f=>{let el=$(f),v=data[k][f];if(el.type==='checkbox')el.checked=!!v;else el.value=v??'';});$('dateLabel').textContent='Mengedit jurnal: '+k;$('journalForm').onsubmit=e=>{e.preventDefault();let d={};fields.forEach(f=>{let el=$(f);d[f]=el.type==='checkbox'?el.checked:el.value;});d.savedAt=new Date().toISOString();data[k]=d;save();$('journalForm').onsubmit=null;setTab('history');};};
+window.deleteEntry=k=>{if(confirm('Hapus jurnal tanggal '+k+'?')){delete data[k];save();}};
+$('export').onclick=()=>{let blob=new Blob([JSON.stringify({journals:data,weekly:JSON.parse(localStorage.getItem(REVIEW)||'{}')},null,2)],{type:'application/json'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='tristans-progress-backup.json';a.click();URL.revokeObjectURL(a.href);};
+function renderWeekly(){let since=new Date();since.setDate(since.getDate()-6);let ds=Object.keys(data).filter(k=>new Date(k+'T12:00:00')>=since).sort();let box=$('weekly');if(!ds.length){box.textContent='Belum ada jurnal dalam 7 hari terakhir.';return;}let avg=Math.round(ds.reduce((a,k)=>a+score(data[k]),0)/ds.length);let jp=ds.reduce((a,k)=>a+(Number(data[k].study)||0),0),au=ds.reduce((a,k)=>a+(Number(data[k].auto)||0),0);box.innerHTML=`<p><b>${ds.length} dari 7 hari</b> memiliki jurnal.</p><p>Rata-rata kebiasaan: <b>${avg}%</b></p><p>Total belajar Jepang: <b>${jp} menit</b></p><p>Total belajar otomotif: <b>${au} menit</b></p><p class="muted">Gunakan angka ini sebagai bahan refleksi, bukan untuk menghakimi diri sendiri.</p>`;}
+$('saveReview').onclick=()=>{let r={best:$('best').value,challenge:$('challenge').value,next:$('next').value};localStorage.setItem(REVIEW,JSON.stringify(r));$('reviewSaved').textContent='Refleksi mingguan tersimpan di perangkat ini.';};
+let old=JSON.parse(localStorage.getItem(REVIEW)||'{}');$('best').value=old.best||'';$('challenge').value=old.challenge||'';$('next').value=old.next||'';
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+render();
+</script>
+</body></html>
